@@ -8,6 +8,7 @@ class Solution
 public:
     // TC: O(N)
     // SC: O(1)
+    // Two Pointer Approach
     int countSubArrayProductLessThanK(const vector<int> &a, int n, long long k)
     {
         int count = 0;
