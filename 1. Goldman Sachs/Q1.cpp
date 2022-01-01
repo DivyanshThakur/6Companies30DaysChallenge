@@ -1,38 +1,27 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
 class Solution
 {
 public:
+    // TC: O(N*K*logK), N: Number of words, K: Maximum length of string
+    // SC: O(N*K)
     vector<vector<string>> Anagrams(vector<string> &string_list)
     {
-        map<map<char, int>, vector<string>> wordHash;
-
-        for (auto &str : string_list)
-        {
-            map<char, int> mp;
-
-            for (char c : str)
-            {
-                mp[c]++;
-            }
-
-            auto it = wordHash.find(mp);
-
-            if (it != wordHash.end())
-            {
-                it->second.push_back(str);
-            }
-            else
-            {
-                wordHash.insert({mp, vector<string>{str}});
-            }
-        }
-
         vector<vector<string>> res;
+        unordered_map<string, vector<string>> wordHash;
+
+        for (auto &word : string_list)
+        {
+            string s = word;
+            sort(s.begin(), s.end());
+
+            wordHash[s].push_back(word);
+        }
 
         for (auto &p : wordHash)
         {
