@@ -7,6 +7,8 @@ using namespace std;
 class Solution
 {
 public:
+    // TC: O(N*N)
+    // SC: O(1)
     int isValid(vector<vector<int>> mat)
     {
         vector<set<int>> row(9), col(9), grid(9);
