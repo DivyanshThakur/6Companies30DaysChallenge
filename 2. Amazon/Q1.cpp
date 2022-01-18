@@ -2,30 +2,33 @@
 
 using namespace std;
 
-class Solution {
-  public:
+class Solution
+{
+public:
     // TC: O(N*K)
-    // AS: O(N*K)
-    int maxProfit(int K, int N, int A[]) {
-        int dp[K+1][N+1];
+    // AS: O(N)
+    int maxProfit(int K, int N, int A[])
+    {
+        int dp[N];
 
-        for(int i=0; i<=N; i++) {
-            dp[0][i] = 0;
-        }
-        
-        for(int i=1; i<=K; i++) {
-            dp[i][0] = 0;
-        }
-        
-        for(int i=1; i<=K; i++) {
-            int prevDiff = INT_MIN;
-            for(int j=1; j<=N; j++) {
-                prevDiff = max(prevDiff, dp[i-1][j-1] - A[j-1]);
-                
-                dp[i][j] = max(dp[i][j-1], prevDiff + A[j]);
+        for (int i = 0; i < N; i++)
+            dp[i] = 0;
+
+        for (int i = 1; i <= K; i++)
+        {
+            int maxDiff = dp[0] - A[0];
+            for (int j = 1; j < N; j++)
+            {
+                int preValue = dp[j];
+
+                dp[j] = dp[j - 1];
+
+                dp[j] = max(dp[j], A[j] + maxDiff);
+
+                maxDiff = max(maxDiff, preValue - A[j]);
             }
         }
-        
-        return dp[K][N-1];
+
+        return dp[N - 1];
     }
 };
